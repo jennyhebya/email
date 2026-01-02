@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tmail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container { margin-top: 50px; }
+        .btn-create { background-color: #007bff; color: white; }
+        .btn-reset { background-color: #dc3545; color: white; }
+        .code-box {
+            border: 2px dashed #007bff;
+            background-color: #f0f4ff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+        .waiting { color: #6c757d; font-style: italic; font-size: 18px; letter-spacing: normal; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <span>Temporary FB</span>
+                        <div class="d-flex gap-2">
+                            <input type="text" class="form-control" id="username" placeholder="Username">
+                            <select class="form-select" id="domain">
+                                <option value="fleshbit.net">@fleshbit.net</option>
+                                <option value="burnbit.net">@burnbit.net</option>
+                                <option value="dailywaterjug.net">@dailywaterjug.net</option>
+                                <option value="ingrich.com">@ingrich.com</option>
+                                <option value="mxdus.com">@mxdus.com</option>
+                                <option value="ijobns.com">@ijobns.com</option>
+                                <option value="thompson633.net">@thompson633.net</option>
+                                <option value="mnx-family.com">@mnx-family.com</option>
+                                <option value="pmheating.com">@pmheating.com</option>
+                                <option value="happy-talking.org">@happy-talking.org</option>
+                                <option value="mongosh.com">@mongosh.com</option>
+                                <option value="sprytny.edu.pl">@sprytny.edu.pl</option>
+                                <option value="splyie.com">@splyie.com</option>
+                                <option value="mojlekarz.edu.pl">@mojlekarz.edu.pl</option>
+                                <option value="mentalnozdravlje.edu.rs">@mentalnozdravlje.edu.rs</option>
+                                <option value="lekarzpiekna.edu.pl">@lekarzpiekna.edu.pl</option>
+                                <option value="yiqiconsult.com">@yiqiconsult.com</option>
+                                <option value="pagonpae.com">@pagonpae.com</option>
+                                <option value="joggingplouguerneau.org">@joggingplouguerneau.org</option>
+                                <option value="grbto.net">@grbto.net</option>
+                                <option value="sven-nina.red">@sven-nina.red</option>
+                                <option value="eysey.com">@eysey.com</option>
+                                <option value="imswa.com">@imswa.com</option>
+                                <option value="shakarianlawgroup.com">@shakarianlawgroup.com</option>
+                                <option value="sullivanplastic.com">@sullivanplastic.com</option>
+                                <option value="wifespictures.com">@wifespictures.com</option>
+                                <option value="gwenbd94.com">@gwenbd94.com</option>
+                            </select>
+                            <button class="btn btn-create" id="creat">Creat</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-body text-center">
+                        <div id="template"></div>
+                        <hr>
+                        <div class="text-center text-muted">
+                            Temporary mnx-family.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let emailCheckIntervals = [];
+
+            $("#creat").click(function() {
+                emailCheckIntervals.forEach(id => clearInterval(id));
+                emailCheckIntervals = [];
+
+                let username = $('#username').val().trim();
+                const fullName = generateRandomName();
+                const nameParts = fullName.replace(" ", "");
+
+                if (username === "") {
+                    const usernameLength = Math.floor(Math.random() * 2) + 5;
+                    username = nameParts + generateRandomString(usernameLength);
+                }
+
+                const domain = $('#domain').val();
+                const email = `${username}@${domain}`;
+
+                appendEmailToTemplate(fullName, email);
+                checkEmailForCode(email);
+            });
+
+            function generateRandomString(length) {
+                const characters = '0123456789';
+                let result = '';
+                for (let i = 0; i < length; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                return result;
+            }
+
+            function generateRandomName() {
+                const names = ["Abby","Abigail","Ada","Adela","Adele","Adriana","Aileen","Aisha","Akilah","Alana","Alexandra","Alice","Alicia","Alisha","Alison","Allison","Alyssa","Amanda","Amber","Amelia","Amina","Amy","Ana","Angela","Angelica","Angelina","Anita","Anna","Anne","Annette","Annie","April","Asha","Ashley","Audrey","Barbara","Beatrice","Belinda","Bernadette","Beth","Bethany","Betty","Bianca","Bonnie","Brenda","Brianna","Bridget","Brittany","Brooke","Candice","Carol","Caroline","Catherine","Charlotte","Cheryl","Chloe","Christina","Christine","Claire","Crystal","Cynthia","Danielle","Deborah","Denise","Diana","Donna","Dorothy","Elizabeth","Emily","Emma","Erica","Eva","Evelyn","Faith","Frances","Gabriella","Grace","Hannah","Heather","Helen","Isabella","Jacqueline","Jane","Janet","Jessica","Joan","Jocelyn","Joyce","Julia","Julie","Karen","Katherine","Kathleen","Kelly","Kimberly","Laura","Lauren","Linda","Lisa","Madison","Margaret","Maria","Martha","Mary","Megan","Melissa","Michelle","Monica","Nancy","Natalie","Nicole","Olivia","Pamela","Patricia","Rachel","Rebecca","Rose","Ruth","Samantha","Sandra","Sarah","Sharon","Sophia","Stephanie","Susan","Teresa","Tiffany","Victoria","Virginia","Zoe"];
+                const rand1 = names[Math.floor(Math.random() * names.length)];
+                const rand2 = names[Math.floor(Math.random() * names.length)];
+                return rand1 + " " + rand2;
+            }
+
+            function appendEmailToTemplate(fullName, email) {
+                $("#template").html(`
+                    <div class="row g-3 align-items-center justify-content-center">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" value="${fullName}" readonly onclick="this.select();">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" value="${email}" readonly onclick="this.select();">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <label class="form-label"><strong>Kode 1 (dari Subject)</strong></label>
+                            <div class="code-box waiting" id="code1-${email}">Waiting Code 1...</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><strong>Kode 2 (dari Isi Pesan)</strong></label>
+                            <div class="code-box waiting" id="code2-${email}">Waiting Code 2...</div>
+                        </div>
+                    </div>
+                `);
+            }
+
+            function extractCodeFromBody(body) {
+                if (!body) return null;
+                let text = body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+                const matches = text.match(/\b\d{4,10}\b/g);
+                if (!matches) return null;
+                return matches.reduce((a, b) => a.length > b.length ? a : b);
+            }
+
+            function checkEmailForCode(email) {
+                const intervalId = setInterval(function() {
+                    $.getJSON(`pesan.php?email=${email}`)
+                        .done(function(data) {
+                            if (data === "empty" || !data || data.length === 0) {
+                                $(`#code1-${email}`).text("Waiting Code 1...").addClass("waiting");
+                                $(`#code2-${email}`).text("Waiting Code 2...").addClass("waiting");
+                                return;
+                            }
+
+                            clearInterval(intervalId);
+
+                            const message = data[0];
+                            const subject = message.subject || "";
+                            const bodyText = message.text || "";
+                            const bodyHtml = message.html || "";
+
+                            // Kode 1: dari subject
+                            const code1 = subject.split(" ")[0].match(/\d{4,10}/)?.[0] || "Tidak ditemukan";
+                            $(`#code1-${email}`).text(code1).removeClass("waiting");
+
+                            // Kode 2: dari body (text atau html)
+                            let code2 = extractCodeFromBody(bodyText) || extractCodeFromBody(bodyHtml);
+                            if (!code2) code2 = "Tidak ada kode kedua";
+                            $(`#code2-${email}`).text(code2).removeClass("waiting");
+
+                            // Notifikasi suara
+                            new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-notification-2574.mp3').play();
+                        })
+                        .fail(function() {
+                            $(`#code1-${email}`).text("Error koneksi");
+                            $(`#code2-${email}`).text("Error koneksi");
+                        });
+                }, 7000);
+                emailCheckIntervals.push(intervalId);
+            }
+        });
+    </script>
+</body>
+</html>
